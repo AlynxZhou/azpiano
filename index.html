@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    <meta name="author" content="Alynx Zhou">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <!-- Use defer to make image load first. -->
+    <!-- <script defer type="text/javascript" src="js/index.js"></script> -->
+    <!-- <script async type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+    <title>AZPiano</title>
+  </head>
+  <body>
+    <div class="mask" id="dialog-mask">
+      <div class="card" id="card">
+
+      </div>
+    </div>
+    <div id="container">
+      <div class="keyboard card" id="keyboard">
+      </div>
+      <div class="logger card" id="logger">
+        <div class="logger-container" id="logger-container">
+          <textarea id="logger-textarea" rows="8" readonly></textarea>
+        </div>
+        <div class="logger-buttons flex-row" id="logger-buttons">
+          <div class="flex-item">
+            <input type="checkbox" id="checkbox-enable" checked>
+            <label for="enable-checkbox">Enable</label>
+          </div>
+          <div class="flex-item">
+            <button class="button button-green" id="button-space">Space</button>
+          </div>
+          <div class="flex-item">
+            <button class="button button-green" id="button-return">Return</button>
+          </div>
+          <div class="flex-item">
+            <button class="button button-red" id="button-delete">Delete</button>
+          </div>
+          <div class="flex-item">
+            <button class="button button-red" id="button-clear">Clear</button>
+          </div>
+          <div class="flex-item">
+            <button class="button button-blue" id="button-copy">Copy</button>
+          </div>
+        </div>
+      </div>
+      <div class="card settings" id="settings">
+      </div>
+      <footer class="card footer" id="footer">
+      </footer>
+    </div>
+  </body>
+</html>
