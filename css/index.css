@@ -1,0 +1,141 @@
+html, body {
+  font: 14px Roboto, "Noto Sans", "Noto Sans CJK", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  display: block;
+  overflow: hidden;
+  border-radius: 0.3em;
+  padding: 0.5em 1em;
+  margin: 0.5em;
+  background: #fff;
+  box-shadow: 0 0 1em 0.5em rgba(0,0,0,0.19);
+}
+
+.key-pressed {
+  color: #fff;
+  background: #333;
+}
+
+.center {
+  text-align: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.keyboard-row {
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+#logger-buttons, #settings {
+  justify-content: space-around;
+}
+
+#settings {
+  font-size: 1.2em;
+}
+
+#logger-container {
+  margin: 1em 0;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.mask {
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-no-wrap {
+  flex-wrap: no-wrap;
+}
+
+/* See <https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Controlling_Ratios_of_Flex_Items_Along_the_Main_Ax>. */
+/* Bootstrap-like 12-column row implemented in flex-box. */
+.flex-item-1 {
+  flex: 1 1 0;
+}
+
+.flex-item-2 {
+  flex: 2 2 0;
+}
+
+.flex-item-3 {
+  flex: 3 3 0;
+}
+
+.flex-item-4 {
+  flex: 4 4 0;
+}
+
+.flex-item-6 {
+  flex: 6 6 0;
+}
+
+.mask {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#dialog-mask {
+  z-index: 1;
+}
+
+#container {
+  z-index: 0;
+}
+
+#logger-textarea {
+  resize: none;
+}
+
+.button {
+  line-height: 1.2em;
+  font-size: 1.2em;
+  text-decoration: none;
+  padding: 0.5em 1em;
+  border-radius: 0.3em;
+  color: #fff;
+  background: #9f1313;
+  border: 0.1em solid #ddd;
+}
+
+.button-red {
+  background: #9f1313;
+}
+
+.button-green {
+  background: #237f23;
+}
+
+.button-blue {
+  background: #2356af;
+}
+
+#switch-container {
+  line-height: 1.2em;
+  font-size: 1.2em;
+  padding: 0.5em 1em;
+}
+
+#logger-textarea {
+  width: 75%;
+}

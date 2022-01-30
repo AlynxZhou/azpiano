@@ -10,49 +10,81 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <!-- Use defer to make image load first. -->
-    <!-- <script defer type="text/javascript" src="js/index.js"></script> -->
-    <!-- <script async type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+    <script defer type="text/javascript" src="js/index.js"></script>
+    <script async type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <title>AZPiano</title>
   </head>
   <body>
-    <div class="mask" id="dialog-mask">
-      <div class="card" id="card">
-
+    <div class="flex-column mask" id="mask-dialog">
+      <div class="card center" id="card-waiting">
+        <button class="button" id="button-waiting">Press Any Key to Start</button>
+      </div>
+      <div class="card center" id="card-loading" style="visibility: hidden;">
+        <p>Loading assets...<span id="loaded">0</span>/<span id="total">0</span></p>
+        <p id="error" style="visibility: hidden;"></p>
       </div>
     </div>
     <div id="container">
       <div class="keyboard card" id="keyboard">
       </div>
       <div class="logger card" id="logger">
-        <div class="logger-container" id="logger-container">
+        <div class="logger-container center" id="logger-container">
           <textarea id="logger-textarea" rows="8" readonly></textarea>
         </div>
         <div class="logger-buttons flex-row" id="logger-buttons">
-          <div class="flex-item">
-            <input type="checkbox" id="checkbox-enable" checked>
-            <label for="enable-checkbox">Enable</label>
+          <div class="flex-item center" id="switch-container">
+            <input type="checkbox" id="checkbox-switch" checked>
+            <label for="checkbox-switch">Enable</label>
           </div>
-          <div class="flex-item">
-            <button class="button button-green" id="button-space">Space</button>
+          <div class="flex-item center">
+            <button class="button button-green" id="button-space">Space⇨</button>
           </div>
-          <div class="flex-item">
-            <button class="button button-green" id="button-return">Return</button>
+          <div class="flex-item center">
+            <button class="button button-green" id="button-return">Return⇩</button>
           </div>
-          <div class="flex-item">
-            <button class="button button-red" id="button-delete">Delete</button>
+          <div class="flex-item center">
+            <button class="button button-red" id="button-delete">Delete⇦</button>
           </div>
-          <div class="flex-item">
-            <button class="button button-red" id="button-clear">Clear</button>
+          <div class="flex-item center">
+            <button class="button button-red" id="button-clear">Clear⇧</button>
           </div>
-          <div class="flex-item">
+          <div class="flex-item center">
             <button class="button button-blue" id="button-copy">Copy</button>
           </div>
         </div>
       </div>
-      <div class="card settings" id="settings">
+      <div class="card settings flex-row" id="settings">
+        <div class="flex-item center">
+          <label for="select-display">Display</label>
+          <select id="select-display" name="select-display">
+            <option>digit</option>
+            <option>note</option>
+          </select>
+        </div>
+        <div class="flex-item center">
+          <label for="select-output">Output</label>
+          <select id="select-output" name="select-output">
+            <option>digit</option>
+            <option>lilypond-is</option>
+            <option>lilypond-es</option>
+          </select>
+        </div>
+        <div class="flex-item center">
+          <label for="select-layout">Layout</label>
+          <select id="select-layout" name="select-layout">
+            <option>default</option>
+            <option>ctrlcaps</option>
+            <option>hhkb</option>
+            <option>jp</option>
+            <option>dvorak</option>
+          </select>
+        </div>
       </div>
-      <footer class="card footer" id="footer">
-      </footer>
+      <div class="card info center" id="info">
+        <div>Star or fork on <a href="https://github.com/AlynxZhou/azpiano/" target="_blank" rel="noreferrer noopener">GitHub</a>.</div>
+        <div>Welcome to <a href="https://alynx.one/" target="_blank" rel="noreferrer noopener">Alynx Zhou's Homepage</a>.</div>
+        <div><span id="busuanzi_container_site_pv">Total visitors: <span id="busuanzi_value_site_pv"></span></span></div>
+      </info>
     </div>
   </body>
 </html>
