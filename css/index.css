@@ -31,8 +31,7 @@ html, body {
 }
 
 .keyboard-row {
-  align-items: stretch;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 #logger-buttons, #settings {
@@ -64,25 +63,42 @@ html, body {
 }
 
 /* See <https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Controlling_Ratios_of_Flex_Items_Along_the_Main_Ax>. */
-/* Bootstrap-like 12-column row implemented in flex-box. */
-.flex-item-1 {
-  flex: 1 1 0;
-}
-
-.flex-item-2 {
-  flex: 2 2 0;
-}
-
-.flex-item-3 {
-  flex: 3 3 0;
-}
-
+/**
+ * Keyboard should use 1/ 60 as its unit.
+ * Normal key is 4 units.
+ * No grow, but may shrink due to margin.
+ * Shrink should be 60 / units.
+ */
 .flex-item-4 {
-  flex: 4 4 0;
+  flex: 0 15 6.67%;
+}
+
+.flex-item-5 {
+  flex: 0 12 8.33%;
 }
 
 .flex-item-6 {
-  flex: 6 6 0;
+  flex: 0 10 10%;
+}
+
+.flex-item-7 {
+  flex: 0 8.57 11.67%;
+}
+
+.flex-item-8 {
+  flex: 0 7.5 13.33%;
+}
+
+.flex-item-9 {
+  flex: 0 6.67 15%;
+}
+
+.flex-item-11 {
+  flex: 0 5.54 18.33%;
+}
+
+.flex-item-24 {
+  flex: 0 2.5 40%;
 }
 
 .mask {

@@ -79,7 +79,7 @@ class Base64Decoder {
   decodeAsync(input) {
     return new Promise((resolve, reject) => {
       // Use setTimeout to kick task to the last of event loop.
-      setTimeout(() => {
+      window.setTimeout(() => {
         resolve(this.decode(input));
       }, 0);
     });
@@ -248,46 +248,51 @@ class Keyboard {
      * it is hard because I need to take them apart with copy & paste.
      */
     if (x === 0 && y === length - 1) {
-      if (this.app.settings.params.layout === "hhkb") {
-        // Backquote.
-        element.classList.add("flex-item-2");
-      } else {
-        // Backspace.
+      if (this.app.settings.params.layout === "hhkb" ||
+        this.app.settings.params.layout === "jp") {
+        // Backquote or JP Backspace.
         element.classList.add("flex-item-4");
+      } else {
+        // Normal Backspace.
+        element.classList.add("flex-item-8");
       }
     } else if (x === 1 && y === 0) {
       // Tab.
-      element.classList.add("flex-item-3");
+      element.classList.add("flex-item-6");
     } else if (x === 1 && y === length - 1) {
       if (this.app.settings.params.layout === "jp") {
         // Enter.
-        element.classList.add("flex-item-4");
+        element.classList.add("flex-item-6");
       } else {
         // Backslash.
-        element.classList.add("flex-item-3");
+        element.classList.add("flex-item-6");
       }
     } else if (x === 2 && y === 0) {
       // CapsLock.
-      element.classList.add("flex-item-3");
+      element.classList.add("flex-item-7");
     } else if (x === 2 && y === length - 1) {
       // Enter.
       if (this.app.settings.params.layout === "jp") {
-        element.classList.add("flex-item-3");
+        element.classList.add("flex-item-5");
       } else {
-        element.classList.add("flex-item-4");
+        element.classList.add("flex-item-9");
       }
     } else if (x === 3 && y === 0) {
       // ShiftLeft.
-      element.classList.add("flex-item-3");
+      element.classList.add("flex-item-9");
     } else if (x === 3 && y === length - 1) {
       // ShiftRight.
-      element.classList.add("flex-item-4");
+      if (this.app.settings.params.layout === "jp") {
+        element.classList.add("flex-item-7");
+      } else {
+        element.classList.add("flex-item-11");
+      }
     } else if (x === 4) {
       // Space.
-      element.classList.add("flex-item-6");
+      element.classList.add("flex-item-24");
     } else {
       // Other digit, alpha and symbol.
-      element.classList.add("flex-item-2");
+      element.classList.add("flex-item-4");
     }
     element.id = key[0];
     element.innerHTML = `${upper}<br>${lower}`;
