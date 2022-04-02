@@ -618,9 +618,10 @@ class App {
       case "ArrowLeft":
         this.logger.delete();
         return;
-      case "ArrowUp":
-        this.logger.clear();
-        return;
+      // I got crazy after I deleted my input twice by mistake!
+      // case "ArrowUp":
+      //   this.logger.clear();
+      //   return;
       default:
         break;
     }
