@@ -407,7 +407,8 @@ class Logger {
   }
 
   render() {
-    this.textarea.value = this.join();
+    // Add a cursor so we know where we are.
+    this.textarea.value = `${this.join()}_`;
     this.textarea.scrollTop = this.textarea.scrollHeight;
   }
 }
