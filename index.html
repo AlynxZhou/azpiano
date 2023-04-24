@@ -25,7 +25,32 @@
       </div>
     </div>
     <div id="container">
-      <div class="keyboard card" id="keyboard">
+      <div class="card settings flex-row" id="settings">
+        <div class="flex-item center">
+          <label for="select-display">Display</label>
+          <select id="select-display" name="select-display">
+            <option>digit</option>
+            <option>note</option>
+          </select>
+        </div>
+        <div class="flex-item center">
+          <label for="select-output">Output</label>
+          <select id="select-output" name="select-output">
+            <option>digit</option>
+            <option>lilypond-is</option>
+            <option>lilypond-es</option>
+          </select>
+        </div>
+        <div class="flex-item center">
+          <label for="select-layout">Layout</label>
+          <select id="select-layout" name="select-layout">
+            <option>default</option>
+            <option>ctrlcaps</option>
+            <option>hhkb</option>
+            <option>jp</option>
+            <option>dvorak</option>
+          </select>
+        </div>
       </div>
       <div class="logger card" id="logger">
         <div class="logger-container center" id="logger-container">
@@ -53,32 +78,7 @@
           </div>
         </div>
       </div>
-      <div class="card settings flex-row" id="settings">
-        <div class="flex-item center">
-          <label for="select-display">Display</label>
-          <select id="select-display" name="select-display">
-            <option>digit</option>
-            <option>note</option>
-          </select>
-        </div>
-        <div class="flex-item center">
-          <label for="select-output">Output</label>
-          <select id="select-output" name="select-output">
-            <option>digit</option>
-            <option>lilypond-is</option>
-            <option>lilypond-es</option>
-          </select>
-        </div>
-        <div class="flex-item center">
-          <label for="select-layout">Layout</label>
-          <select id="select-layout" name="select-layout">
-            <option>default</option>
-            <option>ctrlcaps</option>
-            <option>hhkb</option>
-            <option>jp</option>
-            <option>dvorak</option>
-          </select>
-        </div>
+      <div class="keyboard card" id="keyboard">
       </div>
       <div class="card info center" id="info">
         <div>Star or fork on <a href="https://github.com/AlynxZhou/azpiano/" target="_blank" rel="noreferrer noopener">GitHub</a>.</div>
