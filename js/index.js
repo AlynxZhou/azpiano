@@ -296,6 +296,14 @@ class Keyboard {
     }
     element.id = key[0];
     element.innerHTML = `${upper}<br>${lower}`;
+    element.addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      this.app.playNoteByCode(key[0]);
+    });
+    element.addEventListener("touchend", (event) => {
+      event.preventDefault();
+      this.app.pauseNoteByCode(key[0]);
+    });
     this.keys[key[0]] = element;
     return element;
   }
@@ -597,6 +605,32 @@ class App {
     }
   }
 
+  playNoteByCode(code) {
+    const note = this.codesNotes[code];
+    if (note == null) {
+      return;
+    }
+    this.keyboard.press(code);
+    this.logger.insert(
+      this.settings.params.output === "digit"
+        ? this.notesDigits.json[note]
+        : this.notesLily.json[
+          this.settings.params.output
+        ][note]
+    );
+    window.localStorage.setItem("log", this.logger.export());
+    this.player.play(note, this.notesBuffers.json[note]);
+  }
+
+  pauseNoteByCode(code) {
+    const note = this.codesNotes[code];
+    if (note == null) {
+      return;
+    }
+    this.keyboard.release(code);
+    this.player.pause(note);
+  }
+
   onKeyDown(event) {
     event.preventDefault();
 
@@ -627,22 +661,11 @@ class App {
         break;
     }
 
-    if (event.repeat || this.codesNotes[event.code] == null) {
+    if (event.repeat) {
       return;
     }
 
-    const code = event.code;
-    const note = this.codesNotes[code];
-    this.keyboard.press(code);
-    this.logger.insert(
-      this.settings.params.output === "digit"
-        ? this.notesDigits.json[note]
-        : this.notesLily.json[
-          this.settings.params.output
-        ][note]
-    );
-    window.localStorage.setItem("log", this.logger.export());
-    this.player.play(note, this.notesBuffers.json[note]);
+    this.playNoteByCode(event.code);
   }
 
   onKeyUp(event) {
@@ -656,10 +679,7 @@ class App {
       return;
     }
 
-    const code = event.code;
-    const note = this.codesNotes[code];
-    this.keyboard.release(code);
-    this.player.pause(note);
+    this.pauseNoteByCode(event.code);
   }
 
   run() {
