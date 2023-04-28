@@ -298,11 +298,11 @@ class Keyboard {
     element.innerHTML = `${upper}<br>${lower}`;
     element.addEventListener("touchstart", (event) => {
       event.preventDefault();
-      this.app.playNoteByCode(key[0]);
+      this.app.playNoteByCode(event.target.id);
     });
     element.addEventListener("touchend", (event) => {
       event.preventDefault();
-      this.app.pauseNoteByCode(key[0]);
+      this.app.pauseNoteByCode(event.target.id);
     });
     this.keys[key[0]] = element;
     return element;
