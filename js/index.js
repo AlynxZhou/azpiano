@@ -150,24 +150,61 @@ class JSONAsset {
 }
 
 class AudioAsset extends JSONAsset {
-  loadAsync(player, decoder, onStart, onLoad, onError) {
+  loadAsync(onStart, onLoad, onError) {
     if (onStart != null) {
       onStart(this);
     }
     return fetchJSON(this.path).then((json) => {
-      this.json = json;
+      this.json = {};
       const promises = [];
-      for (const k in this.json) {
-        decoder.decodeAsync(
-          this.json[k].substring(OGG_HEADER_LENGTH)
+      const decoder = new Base64Decoder();
+      const audioContext = new AudioContext();
+      for (const k in json) {
+        promises.push(decoder.decodeAsync(
+          json[k].substring(OGG_HEADER_LENGTH)
         ).then((buffer) => {
-          return player.decodeAudioData(buffer);
+          return audioContext.decodeAudioData(buffer);
         }).then((audioBuffer) => {
           this.json[k] = audioBuffer;
-        });
-        promises.push(this.json[k]);
+        }).catch((error) => {
+          this.error = error;
+          console.error(error);
+          // If some notes are failed to decode, sliently log it, but don't show
+          // it. The app still works.
+          // if (onError != null) {
+          //   onError(this);
+          // }
+        }));
       }
-      return Promise.all(promises);
+      // A strange bug of Firefox Android: If you call `decodeAudioData()` too
+      // many times at the same time, it will fail for the last several buffers.
+      // In this case I have 49 buffers, the last 9 buffers always fail. If I
+      // sort buffers in another sequence, still the last 9 but different
+      // buffers. No matter how many `AudioContext` used, it always happens.
+      // My buffers are fine because they work on Firefox Desktop and Chrome.
+      // A workaround is let it relax and try again, like what I do here:
+      return Promise.all(promises).then((promises) => {
+        const promises1 = [];
+        for (const k in json) {
+          if (this.json[k] != null) {
+            continue;
+          }
+          promises1.push(decoder.decodeAsync(
+            json[k].substring(OGG_HEADER_LENGTH)
+          ).then((buffer) => {
+            return audioContext.decodeAudioData(buffer);
+          }).then((audioBuffer) => {
+            this.json[k] = audioBuffer;
+          }).catch((error) => {
+            this.error = error;
+            console.error(error);
+            // if (onError != null) {
+            //   onError(this);
+            // }
+          }));
+        }
+        return Promise.all(promises1);
+      });
     }).then((promises) => {
       if (onLoad != null) {
         onLoad(this);
@@ -296,14 +333,18 @@ class Keyboard {
     }
     element.id = key[0];
     element.innerHTML = `${upper}<br>${lower}`;
-    element.addEventListener("touchstart", (event) => {
+    const onPlay = (event) => {
       event.preventDefault();
       this.app.playNoteByCode(event.target.id);
-    });
-    element.addEventListener("touchend", (event) => {
+    };
+    const onPause = (event) => {
       event.preventDefault();
       this.app.pauseNoteByCode(event.target.id);
-    });
+    };
+    element.addEventListener("touchstart", onPlay);
+    element.addEventListener("touchend", onPause);
+    element.addEventListener("mousedown", onPlay);
+    element.addEventListener("mouseup", onPause);
     this.keys[key[0]] = element;
     return element;
   }
@@ -537,7 +578,6 @@ class App {
     };
     // We can only create AudioContext after user action in Chromium.
     this.player = null;
-    this.decoder = new Base64Decoder();
     this.notesBuffers = new AudioAsset("assets/notes-buffers.json");
     this.notesDigits = new JSONAsset("assets/notes-digits.json");
     this.notesLily = new JSONAsset("assets/notes-lily.json");
@@ -574,13 +614,7 @@ class App {
       showElement(this.errorText);
     };
     const assets = [
-      this.notesBuffers.loadAsync(
-        this.player,
-        this.decoder,
-        null,
-        onLoad,
-        onError
-      ),
+      this.notesBuffers.loadAsync(null, onLoad, onError),
       this.notesDigits.loadAsync(null, onLoad, onError),
       this.notesLily.loadAsync(null, onLoad, onError),
       this.codesChars.loadAsync(null, onLoad, onError)
