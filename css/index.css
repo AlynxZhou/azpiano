@@ -46,6 +46,11 @@ html, body {
   margin: 1em 0;
 }
 
+#logger-textarea {
+    font-family: Monaco, Menlo, "Roboto Mono", Consolas, monospace;
+    font-feature-settings: "liga" 0;
+}
+
 .flex-column {
   display: flex;
   flex-direction: column;
